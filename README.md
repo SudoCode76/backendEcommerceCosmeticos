@@ -2,6 +2,15 @@
 ```bash
 npm install
 ```
+# Es importante que primero se restaure la base de datos desde bdBackupPostgres
+# ahi se encontrara el archivo ecommerceCosmetico.pgsql 
+```bash
+createdb -U postgres -h localhost ecommerceCosmeticos
+```
+```bash
+pg_restore -U postgres -h localhost -d ecommerceCosmeticos -v ecommerceCosmetico.pgsql
+```
+
 ## Para inciar el proyecto
 ```bash
 npm run develop
