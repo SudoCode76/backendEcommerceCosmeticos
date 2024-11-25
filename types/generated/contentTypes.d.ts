@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
   collectionName: 'categorias';
   info: {
+    description: '';
     displayName: 'Categoria';
     pluralName: 'categorias';
     singularName: 'categoria';
@@ -394,6 +395,34 @@ export interface ApiCategoriaCategoria extends Struct.CollectionTypeSchema {
     mainImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'categoriaNombre'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCiudadCiudad extends Struct.CollectionTypeSchema {
+  collectionName: 'ciudads';
+  info: {
+    displayName: 'CIUDAD';
+    pluralName: 'ciudads';
+    singularName: 'ciudad';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ciudad.ciudad'
+    > &
+      Schema.Attribute.Private;
+    nombreCiudad: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -984,6 +1013,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::categoria.categoria': ApiCategoriaCategoria;
+      'api::ciudad.ciudad': ApiCiudadCiudad;
       'api::global.global': ApiGlobalGlobal;
       'api::producto.producto': ApiProductoProducto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
